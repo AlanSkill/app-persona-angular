@@ -3,18 +3,22 @@
 
 <div class="row">
     <div class="col text-right">
-        <button routerLink="/usuario/nuevo" class="btn btn-primary">
+        <button type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#addEditModal"
+                (click)="addClick()">
             <em class="fa fa-plus">
                 Agregar
             </em>
         </button>
-        
     </div>
 </div>
-<table>
+
 <table *ngIf="!cargando && personas.length  > 0" class="table table-responsive-lg mt-3 animated fadeIn faster">
     <thead class="thead-dark">
         <tr>
+            <th scope="col">No.</th>
             <th scope="col">Nombre</th>
             <th scope="col">Telefono</th>
             <th scope="col">Acciones</th>
@@ -37,6 +41,51 @@
 
     </tbody>
 </table>
+
+<!--Inicia Modal Agregar Editar -->
+<div class="modal fade" 
+     id="addEditModal" 
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel" 
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addEditModalLabel">{{modalTitle}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="guardar( f )" #f="ngForm">
+
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" class="form-control" [(ngModel)]="persona.nombre" name="nombre" placeholder="Nombre cliente" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label>A. Paterno</label>
+                        <input type="text" class="form-control" [(ngModel)]="persona.primerApellido" name="primerApellido" placeholder="A. Paterno" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <label>A. Materno</label>
+                        <input type="text" class="form-control" [(ngModel)]="persona.segundoApellido" name="segundoApellido" placeholder="A. Materno" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Termina Modal Agregar Editar -->
+
+
 
 
 

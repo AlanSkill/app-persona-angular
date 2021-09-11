@@ -1,8 +1,8 @@
 export class PersonaModel{
     id: string;
     nombre: string;
-    primerApellido: string;
-    segundoApellido: string;
+    primer_apellido: string;
+    segundo_apellido: string;
     telefono: string;
     estatus: string;
 

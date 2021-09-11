@@ -20,21 +20,21 @@ export class PersonasService {
     return this.http.get(`${ this.url }/personas/`).pipe(delay(0));
   }
 
-  crearPersona( persona: PersonaModel ) {
+  crearActualizarPersona( persona: PersonaModel ) {
     return this.http.post(`${ this.url }/personas/`, persona);
   }
 
-  actualizarPersona(persona: PersonaModel) {
+  // actualizarPersona(persona: PersonaModel) {
 
-    const personaTemp = {
-      ...persona
-    };
-    delete personaTemp.id;
+  //   const personaTemp = {
+  //     ...persona
+  //   };
+  //   delete personaTemp.id;
 
-    return this.http.put(`${ this.url }/persona/${ persona.id }`, personaTemp);
-  }
+  //   return this.http.put(`${ this.url }/persona/${ persona.id }`, personaTemp);
+  // }
 
   borrarPersona(id: string) {
-    return this.http.delete(`${ this.url }/persona/${ id }`);
+    return this.http.delete(`${ this.url }/personas/${ id }`);
   }
 }

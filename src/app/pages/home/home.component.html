@@ -30,10 +30,14 @@
             <td>{{ persona.nombre }}</td>
             <td>{{ persona.telefono }}</td>
             <td>
-                <button class="btn btn-info mr-1 mb-1" [routerLink]="['/edit-persona',persona.id]">
+                <button type="button" 
+                        class="btn btn-info mr-1 mb-1" 
+                        data-toggle="modal"
+                        data-target="#addEditModal"
+                        (click)="editClick( persona, i+1 )">
                     <em class="fa fa-pencil"></em>
                 </button>
-                <button class="btn btn-danger mb-1" (click)="borrarPersona( cliente, i )">
+                <button type="button" class="btn btn-danger mb-1" (click)="borrarPersona( persona, i+1 )">
                     <em class="fa fa-trash"></em>
                 </button>
             </td>
@@ -53,11 +57,16 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="addEditModalLabel">{{modalTitle}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true"><em class="fa fa-times"></em></span>
                 </button>
             </div>
             <div class="modal-body">
-                <form (ngSubmit)="guardar( f )" #f="ngForm">
+                <form #f="ngForm">
+
+                    <div *ngIf="persona.id !== '0'" class="form-group">
+                        <label>Id Persona</label>
+                        <input type="text" class="form-control" [(ngModel)]="persona.id" name="idPersona" disabled required>
+                    </div>
 
                     <div class="form-group">
                         <label>Nombre</label>
@@ -66,18 +75,40 @@
         
                     <div class="form-group">
                         <label>A. Paterno</label>
-                        <input type="text" class="form-control" [(ngModel)]="persona.primerApellido" name="primerApellido" placeholder="A. Paterno" required>
+                        <input type="text" class="form-control" [(ngModel)]="persona.primer_apellido" name="primerApellido" placeholder="A. Paterno" required>
                     </div>
         
                     <div class="form-group">
                         <label>A. Materno</label>
-                        <input type="text" class="form-control" [(ngModel)]="persona.segundoApellido" name="segundoApellido" placeholder="A. Materno" required>
+                        <input type="text" class="form-control" [(ngModel)]="persona.segundo_apellido" name="segundoApellido" placeholder="A. Materno" required>
                     </div>
+
+                    <div class="form-group">
+                        <label>Telefono</label>
+                        <input type="text" class="form-control" [(ngModel)]="persona.telefono" name="telefono" placeholder="Telefono persona">
+                    </div>
+
+                    <div *ngIf="persona.id !== '0'" class="form-group">
+                        <label>Estatus</label>
+                        <br>
+                        <button *ngIf="persona.estatus == 'a'" (click)="persona.estatus = 'd' " class="btn btn-outline-success w-50" type="button">
+                            Activo
+                        </button>
+                        <button *ngIf="persona.estatus != 'a'" (click)="persona.estatus = 'a' " class="btn btn-outline-danger w-50" type="button">
+                            Inactivo
+                        </button>
+                    </div>
+
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    <em class="fa fa-times"></em>
+                    Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="guardar( f )">
+                    <em class="fa fa-save"></em>
+                    Guardar
+                </button>
             </div>
         </div>
     </div>
